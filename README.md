@@ -55,8 +55,50 @@ Vishing-Scam-Detection/
    ```
    pip install streamlit pandas scikit-learn transformers torch torchaudio soundfile pyctcdecode numpy
    ```
-3. Run the application:
+3. [Download FFmpeg](https://ffmpeg.org/download.html) and add to system PATH 
+
+4. Run the application:
    ```
    streamlit run main.py
    ```
-   
+## Usage
+### Basic Workflow
+1. **Launch Application**: Navigate to the home page
+2. **Select Analysis Type**: Choose from Vishing Defender, URL Analysis, or Education
+3. **Input Data**: Enter phone numbers, text, upload audio files, or URLs
+4. **Review Results**: Get real-time risk assessment and recommendations
+5. **Take Action**: Follow provided guidance for suspected vishing attempts
+### Risk Assessment Thresholds
+- **Total Risk >50%**: High likelihood of vishing attack
+- **35-50%**: Moderate risk requiring caution
+- **<35%**: Low risk but maintain vigilance
+- Risk components aggregate from all analysis modules
+
+## How to Use 
+**1. Phone Number Check**
+```
+# Enter country code (optional): +65
+# Enter phone number: 12345678
+# System performs binary search on country codes
+# Hash map lookup for reported numbers
+# Returns risk assessment and recommendation
+```
+**2. Text Analysis**
+```
+# Input: "Hi, this is from financial department from SIT..."
+# Output: 26% vishing likelihood + detailed analysis
+# Uses Aho-Corasick + SVM for comprehensive detection
+```
+**3. Audio Analysis**
+```
+# Upload: suspicious_call.wav
+# Process: Wav2Vec2 speech-to-text conversion
+# Analyze: Transcribed text through vishing detection
+# Result: Transcription + risk assessment
+```
+**4. URL Verification**
+```
+# Input: https://suspicious-site.com
+# Process: Aho-Corasick pattern matching against Trie
+# Output: Category classification + safety recommendation
+```
